@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>근육 성장과 손실의 비밀: 심층 분석</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .card-hover {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .card-hover:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 15px -3px rgba(0, 255, 255, 0.1), 0 4px 6px -2px rgba(0, 255, 255, 0.05);
+        }
+        /* Tooltip Styles */
+        .tooltip-container {
+            position: relative;
+            display: inline-block;
+            border-bottom: 1px dotted #67e8f9;
+            cursor: help;
+        }
+        .tooltip-text {
+            visibility: hidden;
+            width: 220px;
+            background-color: #1e293b;
+            color: #cbd5e1;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute;
+            z-index: 10;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -110px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.875rem;
+            line-height: 1.25rem;
+        }
+        .tooltip-container:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        /* Scroll Animation Styles */
+        .step-card {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .is-visible .step-card-1 { animation: slideInUp 0.6s 0.1s forwards; }
+        .is-visible .step-card-2 { animation: slideInUp 0.6s 0.3s forwards; }
+        .is-visible .step-card-3 { animation: slideInUp 0.6s 0.5s forwards; }
+        .is-visible .step-card-4 { animation: slideInUp 0.6s 0.7s forwards; }
+        @keyframes slideInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Loader */
+        .loader {
+            border: 4px solid #38bdf8;
+            border-top: 4px solid #0f172a;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-gray-200">
+
+    <div class="container mx-auto p-4 md:p-8">
+        
+        <header class="text-center mb-12 fade-in">
+            <h1 class="text-4xl md:text-5xl font-bold text-cyan-400 mb-4">근육 성장과 손실의 비밀</h1>
+            <p class="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto">
+                <span class="font-bold text-white">근육은 '공장'과 같습니다!</span> 운동은 공장을 확장하고, 휴식은 공장을 유지하며, 비활동은 공장을 축소시킵니다.
+            </p>
+            <p class="text-md text-slate-400 mt-4">안산대학교 물리치료학과 심경섭 교수</p>
+        </header>
+
+        <main class="space-y-12">
+
+            <!-- Key Takeaways -->
+            <section class="bg-slate-800 p-6 rounded-xl shadow-lg fade-in card-hover" style="animation-delay: 0.1s;">
+                <h2 class="text-2xl font-bold text-white mb-4 border-l-4 border-amber-400 pl-4">핵심 요약 (Key Takeaways)</h2>
+                <ul class="list-disc list-inside space-y-2 text-slate-300">
+                    <li>근성장은 근섬유에 미세손상을 입히고, <span class="text-amber-300 font-semibold">위성세포</span>가 이를 복구하며 핵을 기증하는 과정입니다.</li>
+                    <li><span class="text-amber-300 font-semibold">머슬 메모리</span>는 한번 늘어난 근육 세포핵이 근위축 시에도 대부분 보존되기 때문에 나타나는 현상입니다.</li>
+                    <li>근성장을 위해서는 <span class="text-amber-300 font-semibold">점진적 과부하, 충분한 영양, 48~72시간의 회복</span>이 필수적입니다.</li>
+                </ul>
+            </section>
+
+            <!-- Section 1: Basic Components -->
+            <section class="bg-slate-800 p-6 rounded-xl shadow-lg fade-in" style="animation-delay: 0.2s;">
+                <h2 class="text-3xl font-bold text-white mb-6 border-l-4 border-cyan-400 pl-4">섹션 1: 근육의 구조적 계층 (공장의 설계도)</h2>
+                <div class="space-y-4">
+                    <div class="bg-slate-700 p-4 rounded-lg card-hover">
+                        <h3 class="text-lg font-bold text-white">
+                            <span class="tooltip-container">근막 (Fascia)<span class="tooltip-text">근육, 뼈, 신경, 혈관 등 몸의 모든 구조를 감싸고 연결하는 거미줄 같은 결합조직입니다.</span></span> & 
+                            <span class="tooltip-container">근외막 (Epimysium)<span class="tooltip-text">근육 전체의 가장 바깥을 직접 감싸는 질긴 막입니다. 근막의 일부로 볼 수 있습니다.</span></span>
+                        </h3>
+                        <p class="text-slate-300 text-sm mt-2"><span class="font-semibold text-cyan-300">근막:</span> 근육을 포함한 몸의 모든 구조를 감싸고 연결하는 광범위한 결합조직. 근육을 감싸는 막을 '근육근막'이라 하며, 이곳에 문제가 생기면 <span class="font-semibold text-white">근막동통증후군</span>의 원인이 됩니다.</p>
+                        <p class="text-slate-300 text-sm mt-1"><span class="font-semibold text-cyan-300">근외막:</span> 근막의 일부로, <span class="font-semibold text-white">근육 전체</span>를 직접 감싸는 가장 바깥층의 막입니다.</p>
+                    </div>
+                    <div class="pl-6 text-center"><span class="text-cyan-400 text-2xl">↓</span></div>
+                    
+                    <div class="bg-slate-700 p-4 rounded-lg card-hover">
+                        <h3 class="text-lg font-bold text-white">
+                            <span class="tooltip-container">근섬유 다발 (Fascicle)<span class="tooltip-text">수십~수백 개의 근섬유가 모여 이룬 케이블 같은 중간 다발입니다.</span></span> & 
+                            <span class="tooltip-container">근주막 (Perimysium)<span class="tooltip-text">근섬유 다발 하나하나를 감싸는 막. 혈관과 신경이 지나가는 통로입니다.</span></span>
+                        </h3>
+                         <p class="text-slate-300 text-sm mt-2"><span class="font-semibold text-cyan-300">근섬유 다발:</span> 수십~수백 개의 근섬유가 모여 이룬 <span class="font-semibold text-white">중간 단위의 다발</span>입니다.</p>
+                        <p class="text-slate-300 text-sm mt-1"><span class="font-semibold text-cyan-300">근주막:</span> 이 근섬유 다발을 감싸는 막으로, 혈관과 신경이 지나가는 통로 역할을 합니다.</p>
+                    </div>
+                    <div class="pl-6 text-center"><span class="text-cyan-400 text-2xl">↓</span></div>
+
+                    <div class="bg-slate-700 p-4 rounded-lg card-hover">
+                        <h3 class="text-lg font-bold text-white">근섬유 (Muscle Fiber) & 관련 막 구조</h3>
+                        <p class="text-slate-300 text-sm mt-2">핵, 미토콘드리아 등 세포소기관을 포함한 <span class="font-semibold text-white">실제 근육 세포(다핵세포)</span>입니다. 그 <span class="font-semibold text-cyan-300">'수'는 선천적으로 거의 정해져 있습니다.</span></p>
+                        <div class="mt-2 pl-4 border-l-2 border-slate-600 space-y-2">
+                             <p class="text-slate-300 text-sm"><span class="font-semibold text-cyan-300 tooltip-container">근내막 (Endomysium)<span class="tooltip-text">가장 안쪽에 위치하여 개별 근섬유 하나하나를 섬세하게 감싸는 얇은 막입니다.</span></span>: <span class="font-semibold text-white">개별 근섬유</span> 하나하나를 감싸는 가장 안쪽의 얇은 막입니다.</p>
+                             <p class="text-slate-300 text-sm"><span class="font-semibold text-cyan-300 tooltip-container">기저막 (Basal Lamina)<span class="tooltip-text">세포 외부의 지지 구조물로, 위성세포가 부착되어 대기하는 '재생의 발판' 역할을 합니다.</span></span>: 근내막 안쪽, 근섬유 막 바깥쪽에 위치한 특수 코팅. 위성세포가 부착되는 재생의 발판입니다.</p>
+                             <p class="text-slate-300 text-sm"><span class="font-semibold text-cyan-300 tooltip-container">근섬유 막 (Sarcolemma)<span class="tooltip-text">실제 근육 세포의 세포막. 신경으로부터 받은 전기적 신호를 세포 전체로 전달하는 중요한 역할을 합니다.</span></span>: 실제 근육 세포를 감싸는 세포막. 전기적 신호를 전달하는 중요한 역할을 합니다.</p>
+                        </div>
+                    </div>
+                    <div class="pl-6 text-center"><span class="text-cyan-400 text-2xl">↓</span></div>
+
+                    <div class="bg-slate-700 p-4 rounded-lg card-hover">
+                        <h3 class="text-lg font-bold text-white">근원섬유 (Myofibril)</h3>
+                        <p class="text-slate-300 text-sm mt-1">근섬유 내부를 채우는 수축 단백질 다발. 실질적인 <span class="font-semibold text-cyan-300">근비대와 근위축</span>이 일어나는 레벨입니다. (자체를 감싸는 막은 없음)</p>
+                    </div>
+                    <div class="pl-6 text-center"><span class="text-cyan-400 text-2xl">↓</span></div>
+
+                    <div class="bg-slate-700 p-4 rounded-lg card-hover">
+                        <h3 class="text-lg font-bold text-white">근절 (Sarcomere)</h3>
+                        <p class="text-slate-300 text-sm mt-1">근원섬유 내의 가장 작은 기능/구조 단위. 액틴과 마이오신 필라멘트로 구성되며, 이곳의 <span class="font-semibold text-cyan-300">'수'가 변하며 근육의 크기가 결정</span>됩니다. (자체를 감싸는 막은 없음)</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: Muscle Growth -->
+            <section class="bg-slate-800 p-6 rounded-xl shadow-lg fade-in" style="animation-delay: 0.4s;">
+                <h2 class="text-3xl font-bold text-white mb-6 border-l-4 border-cyan-400 pl-4">섹션 2: 근성장 (근비대)의 과정: 공장 증축하기!</h2>
+                <div class="space-y-8">
+                    <div id="growth-steps" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="flex flex-col items-center text-center p-4 bg-slate-700 rounded-lg card-hover step-card step-card-1">
+                            <span class="text-5xl font-bold text-cyan-500/50">1</span>
+                            <h3 class="text-lg font-bold text-white mt-2">미세손상 발생</h3>
+                            <p class="text-slate-300 text-sm mt-1">고강도 운동은 근섬유(공장)에 미세한 손상(고장)을 입혀 증축 신호를 보냅니다.</p>
+                        </div>
+                        <div class="flex flex-col items-center text-center p-4 bg-slate-700 rounded-lg card-hover step-card step-card-2">
+                            <span class="text-5xl font-bold text-cyan-500/50">2</span>
+                            <h3 class="text-lg font-bold text-white mt-2">위성세포 활성화/증식</h3>
+                            <p class="text-slate-300 text-sm mt-1">근섬유 막(Sarcolemma)과 기저막(Basal Lamina) 사이에 있던 '수리/증축 팀' 위성세포가 기계적/화학적 자극을 받아 깨어나 수를 늘립니다.</p>
+                        </div>
+                        <div class="flex flex-col items-center text-center p-4 bg-slate-700 rounded-lg card-hover step-card step-card-3">
+                            <span class="text-5xl font-bold text-cyan-500/50">3</span>
+                            <h3 class="text-lg font-bold text-white mt-2">융합 및 핵 기증</h3>
+                            <p class="text-slate-300 text-sm mt-1">위성세포가 근섬유와 융합하여 '관리자(핵)'를 기증합니다.</p>
+                        </div>
+                        <div class="flex flex-col items-center text-center p-4 bg-slate-700 rounded-lg card-hover step-card step-card-4">
+                            <span class="text-5xl font-bold text-cyan-500/50">4</span>
+                            <h3 class="text-lg font-bold text-white mt-2">단백질 합성 촉진</h3>
+                            <p class="text-slate-300 text-sm mt-1">늘어난 핵의 지휘 아래 근육 단백질(벽돌) 생산이 폭발적으로 증가합니다.</p>
+                        </div>
+                    </div>
+                     <div>
+                        <h3 class="text-2xl font-bold text-white text-center mt-8 mb-4">최종 결과: 근절의 수 증가 (부피 성장)</h3>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="bg-slate-700 p-6 rounded-lg card-hover">
+                                <h4 class="text-xl font-bold text-cyan-400">병렬적 증가</h4>
+                                <p class="text-slate-300 mt-2">새로운 근절이 옆으로 추가되어 근섬유의 <span class="font-bold text-cyan-400">두께가 굵어집니다.</span> (힘 증가)</p>
+                            </div>
+                            <div class="bg-slate-700 p-6 rounded-lg card-hover">
+                                <h4 class="text-xl font-bold text-cyan-400">직렬적 증가</h4>
+                                <p class="text-slate-300 mt-2">새로운 근절이 양 끝에 이어져 <span class="font-bold text-cyan-400">길이가 길어집니다.</span> (작동 범위/속도 증가)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Muscle Atrophy -->
+             <section class="bg-slate-800 p-6 rounded-xl shadow-lg fade-in" style="animation-delay: 0.6s;">
+                <h2 class="text-3xl font-bold text-white mb-6 border-l-4 border-red-400 pl-4">섹션 3: 근손실 (근위축)의 과정: 공장 축소 및 폐쇄!</h2>
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-4">
+                         <div class="bg-slate-700 p-4 rounded-lg card-hover">
+                            <h3 class="text-xl font-bold text-white">운동 자극 부재</h3>
+                            <p class="text-slate-300 mt-1">근육을 사용하지 않으면, 몸은 새로운 활동량에 맞춰 공장 규모를 줄이기 위해 단백질 분해를 늘립니다.</p>
+                        </div>
+                        <div class="bg-slate-700 p-4 rounded-lg card-hover">
+                            <h3 class="text-xl font-bold text-white">새로운 균형점</h3>
+                            <p class="text-slate-300 mt-1">무한정 근육이 빠지는 것이 아니라, 낮아진 활동량에 필요한 최소한의 근육량에 도달하면 분해와 합성이 <span class="font-semibold text-red-300">새로운 균형</span>을 이루어 현상을 유지합니다.</p>
+                        </div>
+                    </div>
+                     <div class="flex justify-center items-center p-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-24 h-24 bg-cyan-400 rounded-lg flex items-center justify-center text-slate-900 font-bold text-lg">성장</div>
+                            <div class="text-red-400 text-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-12 h-12 mx-auto">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" />
+                                </svg>
+                                <p class="font-bold text-sm">분해 우세</p>
+                            </div>
+                            <div class="w-16 h-16 bg-cyan-700 rounded-lg flex items-center justify-center text-slate-200 font-bold">위축</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- UPDATED Section 4: Muscle Memory -->
+            <section class="bg-slate-800 p-6 rounded-xl shadow-lg fade-in" style="animation-delay: 0.8s;">
+                <h2 class="text-3xl font-bold text-white mb-6 border-l-4 border-amber-400 pl-4">섹션 4: 20-30대의 가치 (오래된 공장의 자산!)</h2>
+                <div class="space-y-8">
+                    <div class="bg-slate-700 p-6 rounded-lg card-hover">
+                        <h3 class="text-2xl font-bold text-white">평생 가는 자산, 머슬 메모리(Muscle Memory)란?</h3>
+                        <p class="text-slate-300 mt-2">
+                           운동을 중단했다 다시 시작할 때, 근육이 처음보다 훨씬 빠르고 쉽게 성장하는 현상입니다. 이는 <span class="font-bold text-amber-400">한번 늘어난 근육 세포핵(관리자)이 근위축 시에도 대부분 사라지지 않고 보존되기 때문</span>입니다. 실제 연구(Gundersen, 2016)에 따르면, 근비대 시 근육 세포핵은 약 54%까지 증가했으며, 이후 운동을 중단해 근육 크기가 원래대로 돌아와도 증가한 핵의 수는 그대로 보존되었습니다. 
+                        </p>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-slate-700 p-6 rounded-lg card-hover">
+                            <h4 class="text-xl font-bold text-amber-300">20대의 가치: 최대 잠재력 확보</h4>
+                            <p class="text-slate-300 mt-2">
+                                호르몬(성장호르몬, 테스토스테론)이 최고조에 달하는 시기입니다. 일반적으로 테스토스테론 수치는 30대 초반 이후 매년 약 1%씩 점진적으로 감소하는 경향이 있어, 20대는 <span class="font-bold text-white">핵의 수를 최대로 확보할 수 있는 최적의 '기회의 창'</span>입니다.
+                            </p>
+                        </div>
+                        <div class="bg-slate-700 p-6 rounded-lg card-hover">
+                            <h4 class="text-xl font-bold text-amber-300">30대의 가치: 효율적인 복귀 자산</h4>
+                            <p class="text-slate-300 mt-2">
+                                여전히 신체적으로 왕성한 시기. 이때의 운동 경험은 40대와 시간적으로 가까워 <span class="font-bold text-white">신경계의 기억과 운동 패턴이 더 생생하게</span> 남아있습니다. 이는 더 빠르고 안전한 복귀를 가능하게 하는 현실적인 자산이 됩니다.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Training & Recovery Principles -->
+            <section class="bg-slate-800 p-6 rounded-xl shadow-lg fade-in" style="animation-delay: 1.0s;">
+                <h2 class="text-3xl font-bold text-white mb-6 border-l-4 border-emerald-400 pl-4">섹션 5: 스마트 훈련 가이드 (공장 운영 최적화)</h2>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-slate-700 p-6 rounded-lg card-hover">
+                        <h3 class="text-xl font-bold text-white mb-2">점진적 과부하</h3>
+                        <p class="text-slate-300">만약 15회 반복(15RM)이 목표인 무게로 16회 이상 가능해졌다면, <span class="font-bold text-emerald-400">저항(무게)을 증량</span>하여 근육에 새로운 성장 자극을 주어야 합니다.</p>
+                    </div>
+                    <div class="bg-slate-700 p-6 rounded-lg card-hover">
+                        <h3 class="text-xl font-bold text-white mb-2">회복의 과학</h3>
+                        <p class="text-slate-300">근육통(DOMS: Delayed Onset Muscle Soreness)은 복구 과정의 신호입니다. 운동 후 근육 단백질 합성(MPS)은 3-4시간에 최고조에 달하고 24-48시간 지속되므로, <span class="font-bold text-emerald-400">48~72시간</span>의 회복이 효과적입니다.</p>
+                    </div>
+                     <div class="bg-slate-700 p-6 rounded-lg card-hover">
+                        <h3 class="text-xl font-bold text-white mb-2">영양과 휴식 (연료와 정비)</h3>
+                        <p class="text-slate-300">단백질은 근육의 원료이며, 충분한 수면은 성장 호르몬 분비를 촉진하는 <span class="font-bold text-emerald-400">필수적인 정비 시간</span>입니다.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- NEW AI Planner Section -->
+            <section class="bg-slate-800 p-6 rounded-xl shadow-lg fade-in" style="animation-delay: 1.2s;">
+                <h2 class="text-3xl font-bold text-white mb-6 border-l-4 border-teal-400 pl-4">✨ 섹션 6: AI 기반 맞춤 플래너</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Workout Planner -->
+                    <div class="bg-slate-700 p-6 rounded-lg card-hover">
+                        <h3 class="text-2xl font-bold text-white mb-4">AI 운동 플랜 생성기</h3>
+                        <form id="workout-form" class="space-y-4">
+                            <div>
+                                <label for="goal" class="block text-sm font-medium text-slate-300">주요 목표</label>
+                                <select id="goal" name="goal" class="mt-1 block w-full bg-slate-800 border-slate-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-teal-500 focus:border-teal-500">
+                                    <option value="Hypertrophy">근비대 (근육 크기 증가)</option>
+                                    <option value="Strength">근력 (스트렝스 증가)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="level" class="block text-sm font-medium text-slate-300">운동 경력</label>
+                                <select id="level" name="level" class="mt-1 block w-full bg-slate-800 border-slate-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-teal-500 focus:border-teal-500">
+                                    <option value="Beginner">초보자</option>
+                                    <option value="Intermediate">중급자</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="days" class="block text-sm font-medium text-slate-300">주당 운동 가능일</label>
+                                <input type="number" id="days" name="days" min="1" max="7" value="3" class="mt-1 block w-full bg-slate-800 border-slate-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-teal-500 focus:border-teal-500">
+                            </div>
+                            <button type="submit" class="w-full bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-md transition duration-300">✨ AI 플랜 생성</button>
+                        </form>
+                        <div id="workout-loader" class="hidden mt-4 flex justify-center"><div class="loader"></div></div>
+                        <div id="workout-result" class="mt-4 p-4 bg-slate-800 rounded-lg whitespace-pre-wrap text-sm hidden"></div>
+                    </div>
+                    <!-- Meal Planner -->
+                    <div class="bg-slate-700 p-6 rounded-lg card-hover">
+                        <h3 class="text-2xl font-bold text-white mb-4">AI 식단 플랜 생성기</h3>
+                        <form id="meal-form" class="space-y-4">
+                             <div>
+                                <label for="weight" class="block text-sm font-medium text-slate-300">현재 체중 (kg)</label>
+                                <input type="number" id="weight" name="weight" min="30" value="70" class="mt-1 block w-full bg-slate-800 border-slate-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-teal-500 focus:border-teal-500">
+                            </div>
+                            <div>
+                                <label for="meal-goal" class="block text-sm font-medium text-slate-300">식단 목표</label>
+                                <select id="meal-goal" name="meal-goal" class="mt-1 block w-full bg-slate-800 border-slate-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-teal-500 focus:border-teal-500">
+                                    <option value="gain">근육량 증가</option>
+                                    <option value="maintenance">유지</option>
+                                </select>
+                            </div>
+                             <div>
+                                <label for="preferences" class="block text-sm font-medium text-slate-300">식단 선호/제한사항 (선택)</label>
+                                <input type="text" id="preferences" name="preferences" placeholder="예: 채식, 유제품 알러지" class="mt-1 block w-full bg-slate-800 border-slate-600 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-teal-500 focus:border-teal-500">
+                            </div>
+                            <button type="submit" class="w-full bg-teal-500 hover:bg-teal-600 text-white font-bold py-2 px-4 rounded-md transition duration-300">✨ AI 식단 생성</button>
+                        </form>
+                         <div id="meal-loader" class="hidden mt-4 flex justify-center"><div class="loader"></div></div>
+                        <div id="meal-result" class="mt-4 p-4 bg-slate-800 rounded-lg whitespace-pre-wrap text-sm hidden"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: FAQ -->
+            <section class="bg-slate-800 p-6 rounded-xl shadow-lg fade-in" style="animation-delay: 1.4s;">
+                <h2 class="text-3xl font-bold text-white mb-6 border-l-4 border-violet-400 pl-4">자주 묻는 질문 (Q&A)</h2>
+                <div class="space-y-4">
+                     <div class="bg-slate-700 p-4 rounded-lg card-hover">
+                        <h3 class="font-semibold text-white">Q. 단백질 섭취량(체중 kg당 1.6g ~ 2.2g)의 과학적 근거는 무엇인가요?</h3>
+                        <div class="text-slate-300 text-sm mt-1">
+                            <p class="mb-2">A. 이 기준은 우리 몸의 '질소 균형'과 '근육 단백질 합성(MPS: Muscle Protein Synthesis)' 효율에 대한 수많은 연구(Morton et al., 2018)를 통해 정립되었습니다.</p>
+                            <ul class="list-disc list-inside space-y-2 pl-2">
+                                <li>
+                                    <span class="font-bold text-violet-300">질소 균형:</span> 
+                                    단백질의 핵심 성분인 질소의 섭취량이 분해량보다 많아야 근육이 성장할 수 있는 '긍정적 질소 균형' 상태가 됩니다.
+                                </li>
+                                <li>
+                                    <span class="font-bold text-violet-300">MPS의 한계점:</span> 
+                                    단백질 섭취를 늘리면 근육 합성률도 증가하지만, 체중 kg당 약 1.6g 지점에서 그 효과가 대부분 나타나는 '수익 체감점'이 존재합니다.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bg-slate-700 p-4 rounded-lg card-hover">
+                        <h3 class="font-semibold text-white">Q. 근력을 키우는 것과 근육 크기를 키우는 것은 다른가요?</h3>
+                        <div class="text-slate-300 text-sm mt-1">
+                            <p class="mb-2">A. 네, 주목표와 그에 따른 신체 적응 방식이 다릅니다. 실제 연구(Schoenfeld et al., 2014)에서도 차이가 나타납니다.</p>
+                            <ul class="list-disc list-inside space-y-2 pl-2">
+                                <li>
+                                    <span class="font-bold text-violet-300">근력(Strength) 훈련 (1-5회):</span> 
+                                    주로 <span class="font-semibold text-white">신경 시스템을 최적화</span>하여 기존 근육의 효율을 극대화합니다.
+                                </li>
+                                <li>
+                                    <span class="font-bold text-violet-300">근비대(Hypertrophy) 훈련 (8-15회):</span> 
+                                    <span class="font-semibold text-white">기계적 장력과 대사 스트레스</span>를 통해 근섬유의 부피 자체를 키우는 데 집중합니다.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bg-slate-700 p-4 rounded-lg card-hover">
+                        <h3 class="font-semibold text-white">Q. 근육이 빠지면, 운동으로 얻은 새로운 세포핵도 사라지나요?</h3>
+                        <p class="text-slate-300 text-sm mt-1">A. 현재 정설은 '아니오'입니다. 일반적인 운동 중단으로 인한 근위축 시, 근절(단백질)은 줄어들지만 세포핵은 대부분 보존됩니다. 이것이 바로 '머슬 메모리'의 강력한 근거입니다.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 8: References -->
+            <section class="bg-slate-800 p-6 rounded-xl shadow-lg fade-in" style="animation-delay: 1.6s;">
+                <h2 class="text-3xl font-bold text-white mb-6 border-l-4 border-gray-400 pl-4">과학적 근거 및 참조 문헌</h2>
+                <div class="space-y-3 text-sm">
+                    <div class="bg-slate-700 p-3 rounded-lg card-hover">
+                        <p class="text-slate-300"><span class="font-bold text-white">머슬 메모리 & 핵 보존:</span> Gundersen, K. (2016). Muscle memory and a new cellular model for muscle atrophy and hypertrophy. <a href="https://journals.biologists.com/jeb/article/219/2/235/33480/Muscle-memory-and-a-new-cellular-model-for-muscle" target="_blank" class="text-cyan-400 hover:underline">Journal of Experimental Biology.</a></p>
+                    </div>
+                    <div class="bg-slate-700 p-3 rounded-lg card-hover">
+                        <p class="text-slate-300"><span class="font-bold text-white">단백질 섭취량 메타분석:</span> Morton, R. W., et al. (2018). A systematic review...of the effect of protein supplementation on...gains in muscle mass and strength... <a href="https://bjsm.bmj.com/content/52/6/376" target="_blank" class="text-cyan-400 hover:underline">British Journal of Sports Medicine.</a></p>
+                    </div>
+                    <div class="bg-slate-700 p-3 rounded-lg card-hover">
+                        <p class="text-slate-300"><span class="font-bold text-white">근력 vs 근비대 훈련:</span> Schoenfeld, B. J., et al. (2014). Effects of different volume-equated resistance training loading strategies on muscular adaptations... <a href="https://pubmed.ncbi.nlm.nih.gov/24714538/" target="_blank" class="text-cyan-400 hover:underline">Journal of Strength and Conditioning Research.</a></p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="text-center mt-12 py-6 border-t border-slate-700 fade-in" style="animation-delay: 1.8s;">
+            <p class="text-amber-400 font-bold text-xl mb-2">기억하세요!</p>
+            <p class="text-slate-300">근육은 꾸준한 자극과 휴식, 영양에 반응합니다.</p>
+            <p class="text-slate-300">과거의 노력은 미래의 자산이 됩니다!</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Scroll animation observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.5
+            });
+
+            const stepsContainer = document.getElementById('growth-steps');
+            if (stepsContainer) {
+                observer.observe(stepsContainer);
+            }
+
+            // AI Planner Logic
+            const workoutForm = document.getElementById('workout-form');
+            const mealForm = document.getElementById('meal-form');
+
+            const workoutResultEl = document.getElementById('workout-result');
+            const workoutLoaderEl = document.getElementById('workout-loader');
+            const mealResultEl = document.getElementById('meal-result');
+            const mealLoaderEl = document.getElementById('meal-loader');
+
+            workoutForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const goal = e.target.goal.value === 'Hypertrophy' ? '근비대' : '근력';
+                const level = e.target.level.value === 'Beginner' ? '초보자' : '중급자';
+                const days = e.target.days.value;
+
+                const prompt = `You are an expert fitness planner AI. Based on the principles of muscle hypertrophy and strength training, create a weekly workout plan in KOREAN for a user with the following details:\n- Goal: ${goal}\n- Experience Level: ${level}\n- Available Days per Week: ${days}\n\nFor the '근력(Strength)' goal, focus on compound movements in the 1-5 rep range. For the '근비대(Hypertrophy)' goal, focus on a mix of compound and isolation movements in the 8-15 rep range. Provide the plan in a clear, day-by-day format. Include warm-up and cool-down recommendations.`;
+                
+                callGemini(prompt, workoutResultEl, workoutLoaderEl);
+            });
+
+            mealForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const weight = e.target.weight.value;
+                const mealGoal = e.target['meal-goal'].value === 'gain' ? '근육량 증가' : '유지';
+                const preferences = e.target.preferences.value || '없음';
+                
+                const prompt = `You are an expert nutrition planner AI. Based on the principle that muscle growth requires 1.6g to 2.2g of protein per kg of body weight, create a sample one-day meal plan in KOREAN for a user with the following details:\n- Weight: ${weight} kg\n- Goal: ${mealGoal}\n- Dietary Preferences/Restrictions: ${preferences}\n\nFirst, calculate the target daily protein intake range. Then, design a realistic meal plan (breakfast, lunch, dinner, and 1-2 snacks) that meets this target. Provide the plan in a clear format, including estimated protein content for each meal and the total for the day.`;
+
+                callGemini(prompt, mealResultEl, mealLoaderEl);
+            });
+
+            async function callGemini(prompt, resultEl, loaderEl) {
+                loaderEl.style.display = 'flex';
+                resultEl.style.display = 'none';
+                resultEl.textContent = '';
+                
+                // This call now works in the preview environment
+                const apiKey = ""; 
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+                const payload = {
+                    contents: [{
+                        parts: [{ text: prompt }]
+                    }],
+                };
+
+                let retries = 3;
+                let delay = 1000;
+                while (retries > 0) {
+                    try {
+                        const response = await fetch(apiUrl, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload)
+                        });
+
+                        if (!response.ok) {
+                            throw new Error(`HTTP error! status: ${response.status}`);
+                        }
+
+                        const result = await response.json();
+                        
+                        if (result.candidates && result.candidates[0] && result.candidates[0].content.parts[0].text) {
+                            const text = result.candidates[0].content.parts[0].text;
+                            resultEl.textContent = text;
+                            loaderEl.style.display = 'none';
+                            resultEl.style.display = 'block';
+                            return;
+                        } else {
+                           throw new Error("Invalid response structure from API.");
+                        }
+
+                    } catch (error) {
+                        console.error('Error calling Gemini API:', error);
+                        retries--;
+                        if (retries === 0) {
+                           resultEl.textContent = '오류가 발생했습니다. 잠시 후 다시 시도해주세요.';
+                           loaderEl.style.display = 'none';
+                           resultEl.style.display = 'block';
+                        } else {
+                            await new Promise(res => setTimeout(res, delay));
+                            delay *= 2; // Exponential backoff
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
