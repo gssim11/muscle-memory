@@ -1,7 +1,7 @@
 {
   "name": "muscle-infographic",
   "version": "1.0.0",
-  "description": "An interactive infographic about muscle growth.",
+  "description": "An interactive infographic about muscle growth, with a custom planner powered by the Gemini API and deployed via Vercel.",
   "main": "index.html",
   "type": "module",
   "scripts": {
@@ -11,9 +11,12 @@
   "keywords": [
     "muscle",
     "fitness",
-    "infographic"
+    "infographic",
+    "gemini",
+    "vercel",
+    "serverless"
   ],
-  "author": "",
+  "author": "Created with Gemini",
   "license": "ISC"
 }
 
