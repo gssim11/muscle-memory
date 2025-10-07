@@ -102,7 +102,7 @@
                 <ul class="list-disc list-inside space-y-2 text-slate-300">
                     <li>근성장은 근섬유에 미세손상을 입히고, <span class="text-amber-300 font-semibold">위성세포</span>가 이를 복구하며 핵을 기증하는 과정입니다.</li>
                     <li><span class="text-amber-300 font-semibold">머슬 메모리</span>는 한번 늘어난 근육 세포핵이 근위축 시에도 대부분 보존되기 때문에 나타나는 현상입니다.</li>
-                    <li>근성장을 위해서는 <span class="text-amber-300 font-semibold">점진적 과부하, 충분한 영양, 48~72시간의 회복</span>이 필수적입니다.</li>
+                    <li>근성장을 위해서는 <span class="font-bold text-amber-300">점진적 과부하, 충분한 영양, 48~72시간의 회복</span>이 필수적입니다.</li>
                 </ul>
             </section>
 
@@ -181,8 +181,8 @@
                         </div>
                     </div>
                      <div>
-                        <h3 class="text-2xl font-bold text-white text-center mt-8 mb-4">최종 결과: 근절의 수 증가 (부피 성장)</h3>
-                        <div class="grid md:grid-cols-2 gap-6">
+                         <h3 class="text-2xl font-bold text-white text-center mt-8 mb-4">최종 결과: 근절의 수 증가 (부피 성장)</h3>
+                         <div class="grid md:grid-cols-2 gap-6">
                             <div class="bg-slate-700 p-6 rounded-lg card-hover">
                                 <h4 class="text-xl font-bold text-cyan-400">병렬적 증가</h4>
                                 <p class="text-slate-300 mt-2">새로운 근절이 옆으로 추가되어 근섬유의 <span class="font-bold text-cyan-400">두께가 굵어집니다.</span> (힘 증가)</p>
@@ -232,7 +232,7 @@
                     <div class="bg-slate-700 p-6 rounded-lg card-hover">
                         <h3 class="text-2xl font-bold text-white">평생 가는 자산, 머슬 메모리(Muscle Memory)란?</h3>
                         <p class="text-slate-300 mt-2">
-                           운동을 중단했다 다시 시작할 때, 근육이 처음보다 훨씬 빠르고 쉽게 성장하는 현상입니다. 이는 <span class="font-bold text-amber-400">한번 늘어난 근육 세포핵(관리자)이 근위축 시에도 대부분 사라지지 않고 보존되기 때문</span>입니다. 실제 연구(Gundersen, 2016)에 따르면, 근비대 시 근육 세포핵은 약 54%까지 증가했으며, 이후 운동을 중단해 근육 크기가 원래대로 돌아와도 증가한 핵의 수는 그대로 보존되었습니다. 
+                            운동을 중단했다 다시 시작할 때, 근육이 처음보다 훨씬 빠르고 쉽게 성장하는 현상입니다. 이는 <span class="font-bold text-amber-400">한번 늘어난 근육 세포핵(관리자)이 근위축 시에도 대부분 사라지지 않고 보존되기 때문</span>입니다. 실제 연구(Gundersen, 2016)에 따르면, 근비대 시 근육 세포핵은 약 54%까지 증가했으며, 이후 운동을 중단해 근육 크기가 원래대로 돌아와도 증가한 핵의 수는 그대로 보존되었습니다. 
                         </p>
                     </div>
                     <div class="grid md:grid-cols-2 gap-6">
@@ -453,54 +453,33 @@
                 resultEl.style.display = 'none';
                 resultEl.textContent = '';
                 
-                // This call now works in the preview environment
-                const apiKey = ""; 
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+                // This is the correct implementation for Vercel deployment
+                try {
+                    const response = await fetch('/api/gemini', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ prompt })
+                    });
 
-                const payload = {
-                    contents: [{
-                        parts: [{ text: prompt }]
-                    }],
-                };
-
-                let retries = 3;
-                let delay = 1000;
-                while (retries > 0) {
-                    try {
-                        const response = await fetch(apiUrl, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify(payload)
-                        });
-
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! status: ${response.status}`);
-                        }
-
-                        const result = await response.json();
-                        
-                        if (result.candidates && result.candidates[0] && result.candidates[0].content.parts[0].text) {
-                            const text = result.candidates[0].content.parts[0].text;
-                            resultEl.textContent = text;
-                            loaderEl.style.display = 'none';
-                            resultEl.style.display = 'block';
-                            return;
-                        } else {
-                           throw new Error("Invalid response structure from API.");
-                        }
-
-                    } catch (error) {
-                        console.error('Error calling Gemini API:', error);
-                        retries--;
-                        if (retries === 0) {
-                           resultEl.textContent = '오류가 발생했습니다. 잠시 후 다시 시도해주세요.';
-                           loaderEl.style.display = 'none';
-                           resultEl.style.display = 'block';
-                        } else {
-                            await new Promise(res => setTimeout(res, delay));
-                            delay *= 2; // Exponential backoff
-                        }
+                    if (!response.ok) {
+                        const errorData = await response.json().catch(() => ({}));
+                        throw new Error(`Server error! Status: ${response.status}. Message: ${errorData.error || 'No additional info'}`);
                     }
+
+                    const result = await response.json();
+                    
+                    if (result.text) {
+                        resultEl.textContent = result.text;
+                    } else {
+                       throw new Error("Invalid response structure from server.");
+                    }
+
+                } catch (error) {
+                    console.error('Error calling backend API:', error);
+                    resultEl.textContent = `오류가 발생했습니다. 잠시 후 다시 시도해주세요. (에러: ${error.message})`;
+                } finally {
+                    loaderEl.style.display = 'none';
+                    resultEl.style.display = 'block';
                 }
             }
         });
